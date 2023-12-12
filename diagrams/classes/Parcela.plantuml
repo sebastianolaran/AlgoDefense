@@ -1,0 +1,64 @@
+@startuml
+
+
+interface Construible {
+    + construir(defensaAConstruir: Torre, parcela: Parcela)
+    + construir(defensaAConstruir: TrampaArenosa, parcela: Parcela)
+}
+interface Movible {
+    + mover(parcela: Parcela, distancia: int, mapa: Mapa)
+    + moverseA()
+}
+
+class ConstruibleTrampa
+class Desplazable
+class Edificable
+
+class NoConstruible
+class NoDesplazable
+
+
+
+abstract class Parcela{
++ {abstract} mover(distancia: int, mapa: Mapa): ParcelaDePasarela
+}
+abstract class ParcelaDePasarela{
++ParcelaDePasarela()
++  mover(distancia: int, mapa: Mapa): ParcelaDePasarela
+}
+class ParcelaDeTierra{
++  mover(distancia: int, mapa: Mapa): ParcelaDePasarela
++   atacar(List<Enemigo> enemigos): void
+}
+class ParcelaRocosa{
++  mover(distancia: int, mapa: Mapa): ParcelaDePasarela
+}
+class PasarelaComun{
++ PasarelaComun(int abscisa, int ordenada)
+}
+class PasarelaLargada{
++ PasarelaLargada(int abscisa, int ordenada)
+}
+class PasarelaMeta{
++ PasarelaMeta(int abscisa, int ordenada)
+}
+
+
+ConstruibleTrampa           -[dashed]-^  Construible
+Desplazable                 -[dashed]-^  Movible
+Edificable                  -[dashed]-^  Construible
+NoConstruible               -[dashed]-^  Construible
+NoDesplazable               -[dashed]-^  Movible
+ParcelaDePasarela           -[plain]-^  Parcela
+ParcelaDeTierra             -[plain]-^  Parcela
+ParcelaRocosa               -[plain]-^  Parcela
+PasarelaComun               -[plain]-^  ParcelaDePasarela
+PasarelaLargada             -[plain]-^  ParcelaDePasarela
+PasarelaMeta                -[plain]-^  ParcelaDePasarela
+
+Parcela --> Construible
+
+Parcela --> Movible
+
+
+@enduml
